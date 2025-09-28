@@ -17,6 +17,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    gap:0%;
 }
 #LeftDoor{
     display: flex;
@@ -152,4 +153,13 @@ body {
 .key-teeth3{
     height: 60px;
     right: 65px;
+}
+.Unlock{
+    left:44%;
+    top: 65px;
+    opacity: 1;
+    transform: rotateY(0deg);
+}
+.UnlockAnimation{
+    transform: rotateZ(90deg);
 }
