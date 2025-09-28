@@ -77,14 +77,79 @@ body {
 }
 #LockHole{
     background-color: black;
-    width: 30px;
-    height: 150px;
+    width: 35px;
+    height: 100px;
 }
 #DoorsKey{
     position: absolute;
     width: 350px;
     height: 150px;
-    background: gold;
-    z-index: 4;
+    z-index: 5;
     bottom: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#DoorsKey:hover .key {
+    transform: rotateY(90deg);
+}
+#DoorsKey:hover .key-headBack{
+    left: 160px;
+    opacity: 1;
+    transform: rotateY(0deg);
+}
+.key {
+    position: absolute;
+    width: 350px;
+    height: 150px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.key-head{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: #b0b0b0;
+    border-radius: 50%;
+    left: 0;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.key-headBack{
+    position: absolute;
+    width: 30px;
+    height: 120px;
+    background-color: #b0b0b0;
+    left: 0;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    transform: rotateY(90deg);
+    opacity: 0;
+}
+.key-body{
+    position: absolute;
+    width: 300px;
+    height: 35px;
+    background-color: #b0b0b0;
+    top: 50px;
+    left:50px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.key-teeth,
+.key-teeth2,
+.key-teeth3{
+    position: absolute;
+    width: 30px;
+    height: 90px;
+    background-color: #b0b0b0;
+    right: 0;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.key-teeth2{
+    top: 50%;
+    height: 40px;
+    right: 32.5px;
+}
+.key-teeth3{
+    height: 60px;
+    right: 65px;
 }
