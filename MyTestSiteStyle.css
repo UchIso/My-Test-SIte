@@ -193,7 +193,7 @@ body{
     visibility: visible;
 }
 
-#SigninTable{
+#SignUpTable{
     position: absolute;
     width: 600px;
     height: 400px;
@@ -205,7 +205,7 @@ body{
     justify-content: center;
     text-align: center;
     box-shadow: 0px 0px 50px 5px white;
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 .LoginButtons{
     width: 200px;
@@ -214,6 +214,7 @@ body{
     border: 1px solid white;
     box-shadow: inset 0px 0px 10px 5px white ;
 }
+#NickInput,
 .MailInput,
 .PasswordInput{
     width: 200px;
@@ -226,6 +227,5 @@ body{
 
 .MailInput:focus,
 .PasswordInput:focus{
-
     border: 1px solid white;
 }

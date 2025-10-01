@@ -54,26 +54,37 @@ function AnimationFunc(){
 
 //*--------------------------------------------------------------
 
-const MailInputs = Array.from(document.getElementsByClassName("MailInput"))
-const PasswordInput = Array.from(document.getElementsByClassName("PasswordInput"))
+const NickInput = document.getElementById("NickInput")
+const MailInputs = document.getElementsByClassName("MailInput")
+const PasswordInput = document.getElementsByClassName("PasswordInput")
+let UserButtons = document.querySelectorAll(".LoginButtons")
+class User{
+    constructor(Nick,Email,Password){
+        this.Nick = Nick
+        this.Email = Email
+        this.Password = Password
+    }
+}
+let UserNick
+let UserEmail
+let UserPassword
 
-let NewUser
-let Id=0
-MailInputs.forEach((e,i) =>{
-    e.value = "dkafjdl432jfa@"
-    if(i==0?true:false){
-        for(let index=0 ;index < localStorage.length; index++){
-            if(e.value == JSON.parse(localStorage.getItem(`ID-${index}`))?.UserEmail||false){
-                console.log(JSON.parse(localStorage.getItem(`ID-${index}`)).UserEmail)
-            }else{
-                console.log("Not Found:");
-                console.log(JSON.parse(localStorage.getItem(`ID-${index}`))?.UserEmail||null)
+UserButtons.forEach((Element,Index)=>{
+    Element.addEventListener("click",ClickEvent => {
+        if(Index == 1){
+            if(NickInput.value.trim() != ""){
+                UserNick = NickInput.value.trim() 
+            }
+            if(MailInputs[Index].value.trim().indexOf("@")>=6 && MailInputs[Index].value.trim().split("").some(value => Number(value)) && MailInputs[Index].value.trim().split("").some(value => value == "@"? false : isNaN(value))){
+                UserEmail = MailInputs[Index].value.trim()
+            }
+            if(PasswordInput[Index].value.trim().split("").some(value => Number(value)) && PasswordInput[Index].value.trim().split("").some(value => isNaN(value)) && PasswordInput[Index].value.length >= 6){
+                UserPassword = PasswordInput[Index].value.trim()
+            }
+            if(UserNick != undefined && UserEmail != undefined && UserPassword != undefined){
+                let NewUser = new User(UserNick,UserEmail,UserPassword)
+                localStorage.setItem(NewUser.Nick, JSON.stringify(NewUser))
             }
         }
-    }else if(e.value.trim().indexOf("@") >= 6 && e.value.split("").some(value => Number(value))){
-        Id++
-        NewUser = {UserEmail: e.value.trim(), id:`ID-${Id}`, UserPassword: null}
-        localStorage.setItem(NewUser.id, JSON.stringify(NewUser))
-        console.log(NewUser);
-    }
+    }) 
 })
