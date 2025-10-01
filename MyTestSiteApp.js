@@ -51,3 +51,29 @@ function AnimationFunc(){
         cancelAnimationFrame(AnimationID)
     }
 }
+
+//*--------------------------------------------------------------
+
+const MailInputs = Array.from(document.getElementsByClassName("MailInput"))
+const PasswordInput = Array.from(document.getElementsByClassName("PasswordInput"))
+
+let NewUser
+let Id=0
+MailInputs.forEach((e,i) =>{
+    e.value = "dkafjdl432jfa@"
+    if(i==0?true:false){
+        for(let index=0 ;index < localStorage.length; index++){
+            if(e.value == JSON.parse(localStorage.getItem(`ID-${index}`))?.UserEmail||false){
+                console.log(JSON.parse(localStorage.getItem(`ID-${index}`)).UserEmail)
+            }else{
+                console.log("Not Found:");
+                console.log(JSON.parse(localStorage.getItem(`ID-${index}`))?.UserEmail||null)
+            }
+        }
+    }else if(e.value.trim().indexOf("@") >= 6 && e.value.split("").some(value => Number(value))){
+        Id++
+        NewUser = {UserEmail: e.value.trim(), id:`ID-${Id}`, UserPassword: null}
+        localStorage.setItem(NewUser.id, JSON.stringify(NewUser))
+        console.log(NewUser);
+    }
+})
