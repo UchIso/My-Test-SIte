@@ -58,6 +58,32 @@ const NickInput = document.getElementById("NickInput")
 const MailInputs = document.getElementsByClassName("MailInput")
 const PasswordInput = document.getElementsByClassName("PasswordInput")
 let UserButtons = document.querySelectorAll(".LoginButtons")
+const SignUpMenuBTN = document.getElementById("SignUpMenuBTN")
+const LoginMenuBTM = document.getElementById("LoginMenuBTM")
+
+LoginMenuBTM.addEventListener("click", ClickEvent => {
+
+    LoginMenuBTM.offsetParent.style.width = "0px"
+    LoginMenuBTM.offsetParent.style.height = "0px"
+    
+    SignUpMenuBTN.offsetParent.style.width = "600px"
+    SignUpMenuBTN.offsetParent.style.height = "400px"
+    
+    SignUpMenuBTN.offsetParent.style.visibility = "visible"
+    LoginMenuBTM.offsetParent.style.visibility = "hidden"
+    
+})
+SignUpMenuBTN.addEventListener("click",ClickEvent => {
+    
+    LoginMenuBTM.offsetParent.style.width = "600px"
+    LoginMenuBTM.offsetParent.style.height = "400px"
+    
+    SignUpMenuBTN.offsetParent.style.width = "0px"
+    SignUpMenuBTN.offsetParent.style.height = "0px"
+    
+    SignUpMenuBTN.offsetParent.style.visibility = "hidden"
+    LoginMenuBTM.offsetParent.style.visibility = "visible"
+})
 class User{
     constructor(Nick,Email,Password){
         this.Nick = Nick
@@ -96,7 +122,6 @@ UserButtons.forEach((Element,Index)=>{
         }else{
             for(let i=0;i<localStorage.length;i++){
                 if(MailInputs[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Email){
-                // if(HasUsers.has(MailInputs[Index].value.trim())){
                 
                     console.log("Correct Email",MailInputs[Index].value.trim());
                     if(PasswordInput[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Password){
