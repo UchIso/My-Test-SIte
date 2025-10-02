@@ -1,4 +1,3 @@
-document
 const DoorKey = document.getElementById("DoorsKey")
 const LockHole = document.getElementById("LockHole")
 const Doors = document.getElementById("Doors")
@@ -6,12 +5,12 @@ const Doors = document.getElementById("Doors")
 DoorKey.addEventListener("mouseenter",MouseEnter => {
     MouseEnter.target.draggable = true
     MouseEnter.stopPropagation()
-    DragOver.preventDefault()
+    MouseEnter.preventDefault()
 })
 DoorKey.addEventListener("mouseleave",MouseLeave => {
     MouseLeave.target.draggable = false
     MouseEnter.stopPropagation()
-    DragOver.preventDefault()
+    MouseLeave.preventDefault()
 })
 LockHole.addEventListener("dragover",DragOver => {
     DragOver.preventDefault()
@@ -57,9 +56,10 @@ function AnimationFunc(){
 const NickInput = document.getElementById("NickInput")
 const MailInputs = document.getElementsByClassName("MailInput")
 const PasswordInput = document.getElementsByClassName("PasswordInput")
-let UserButtons = document.querySelectorAll(".LoginButtons")
+const UserButtons = document.querySelectorAll(".LoginButtons")
 const SignUpMenuBTN = document.getElementById("SignUpMenuBTN")
 const LoginMenuBTM = document.getElementById("LoginMenuBTM")
+const KeyDefender = document.getElementById("KeyDefender")
 
 LoginMenuBTM.addEventListener("click", ClickEvent => {
 
@@ -125,27 +125,70 @@ UserButtons.forEach((Element,Index)=>{
         if(Index == 1){
             if(NickInput.value.trim() != ""){
                 UserNick = NickInput.value.trim() 
+                NickInput.classList.remove("ErrorInput")
+            }else{
+                NickInput.classList.add("ErrorInput")
             }
+            
             if(HasUsers.has(MailInputs[Index].value.trim()) == false && MailInputs[Index].value.trim().indexOf("@")>=6 && MailInputs[Index].value.trim().split("").some(value => Number(value)) && MailInputs[Index].value.trim().split("").some(value => value == "@"? false : isNaN(value))){
                 UserEmail = MailInputs[Index].value.trim()
+                MailInputs[Index].classList.remove("ErrorInput")
             }else{
                 MailInputs[Index].classList.add("ErrorInput")
             }
+
             if(PasswordInput[Index].value.trim().split("").some(value => Number(value)) && PasswordInput[Index].value.trim().split("").some(value => isNaN(value)) && PasswordInput[Index].value.length >= 6){
                 UserPassword = PasswordInput[Index].value.trim()
+                PasswordInput[Index].classList.remove("ErrorInput")
+            }else{
+                PasswordInput[Index].classList.add("ErrorInput")
             }
+            
             if(UserNick != undefined && UserEmail != undefined && UserPassword != undefined){
                 let NewUser = new User(UserNick,UserEmail,UserPassword)
                 localStorage.setItem(NewUser.Nick, JSON.stringify(NewUser))
+
+                LoginMenuBTM.offsetParent.style.opacity = 0
+                SignUpMenuBTN.offsetParent.style.opacity = 0
+
+                setTimeout(()=>{
+                    LoginMenuBTM.offsetParent.remove()
+                    SignUpMenuBTN.offsetParent.remove()
+                    setTimeout(()=>{
+                        KeyDefender.style.opacity = 0
+                        setTimeout(()=>{
+                            KeyDefender.remove()
+                        },100)
+                    },300)
+                },100)
             }
         }else{
             for(let i=0;i<localStorage.length;i++){
+
                 if(MailInputs[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Email){
+                    MailInputs[Index].classList.remove("ErrorInput")
                 
-                    console.log("Correct Email",MailInputs[Index].value.trim());
                     if(PasswordInput[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Password){
-                        console.log("Correct Password",PasswordInput[Index].value.trim());   
+                        PasswordInput[Index].classList.remove("ErrorInput")
+
+                        LoginMenuBTM.offsetParent.style.opacity = 0
+                        SignUpMenuBTN.offsetParent.style.opacity = 0
+
+                        setTimeout(()=>{
+                            LoginMenuBTM.offsetParent.remove()
+                            SignUpMenuBTN.offsetParent.remove()
+                            setTimeout(()=>{
+                                KeyDefender.style.opacity = 0
+                                setTimeout(()=>{
+                                    KeyDefender.remove()
+                                },100)
+                            },300)
+                        },100)
+                    }else if(PasswordInput[Index].value.trim() == "" && PasswordInput[Index].value.trim() != JSON.parse(localStorage.getItem(localStorage.key(i))).Password){
+                        PasswordInput[Index].classList.add("ErrorInput")
                     }
+                }else if(MailInputs[Index].value.trim() == "" && MailInputs[Index].value.trim() != JSON.parse(localStorage.getItem(localStorage.key(i))).Email){
+                    MailInputs[Index].classList.add("ErrorInput")
                 }
             }
         }
