@@ -69,6 +69,8 @@ let UserNick
 let UserEmail
 let UserPassword
 
+let Login
+
 UserButtons.forEach((Element,Index)=>{
     Element.addEventListener("click",ClickEvent => {
         if(Index == 1){
@@ -84,6 +86,16 @@ UserButtons.forEach((Element,Index)=>{
             if(UserNick != undefined && UserEmail != undefined && UserPassword != undefined){
                 let NewUser = new User(UserNick,UserEmail,UserPassword)
                 localStorage.setItem(NewUser.Nick, JSON.stringify(NewUser))
+            }
+        }else{
+            for(let i=0;i<localStorage.length;i++){
+                if(MailInputs[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Email){
+                    console.log("Correct Email");
+                }
+                if(PasswordInput[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Password){
+                    console.log("Correct Password");
+                    
+                }
             }
         }
     }) 
