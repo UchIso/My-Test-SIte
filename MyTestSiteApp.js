@@ -69,7 +69,11 @@ let UserNick
 let UserEmail
 let UserPassword
 
-let Login
+let HasUsers = new Map()
+for(let i=0;i<localStorage.length;i++){
+    let User = JSON.parse(localStorage.getItem(localStorage.key(i))).Email
+    HasUsers.set(User,JSON.parse(localStorage.getItem(localStorage.key(i)))) 
+}
 
 UserButtons.forEach((Element,Index)=>{
     Element.addEventListener("click",ClickEvent => {
@@ -77,8 +81,10 @@ UserButtons.forEach((Element,Index)=>{
             if(NickInput.value.trim() != ""){
                 UserNick = NickInput.value.trim() 
             }
-            if(MailInputs[Index].value.trim().indexOf("@")>=6 && MailInputs[Index].value.trim().split("").some(value => Number(value)) && MailInputs[Index].value.trim().split("").some(value => value == "@"? false : isNaN(value))){
+            if(HasUsers.has(MailInputs[Index].value.trim()) == false && MailInputs[Index].value.trim().indexOf("@")>=6 && MailInputs[Index].value.trim().split("").some(value => Number(value)) && MailInputs[Index].value.trim().split("").some(value => value == "@"? false : isNaN(value))){
                 UserEmail = MailInputs[Index].value.trim()
+            }else{
+                MailInputs[Index].classList.add("ErrorInput")
             }
             if(PasswordInput[Index].value.trim().split("").some(value => Number(value)) && PasswordInput[Index].value.trim().split("").some(value => isNaN(value)) && PasswordInput[Index].value.length >= 6){
                 UserPassword = PasswordInput[Index].value.trim()
@@ -90,11 +96,12 @@ UserButtons.forEach((Element,Index)=>{
         }else{
             for(let i=0;i<localStorage.length;i++){
                 if(MailInputs[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Email){
-                    console.log("Correct Email");
-                }
-                if(PasswordInput[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Password){
-                    console.log("Correct Password");
-                    
+                // if(HasUsers.has(MailInputs[Index].value.trim())){
+                
+                    console.log("Correct Email",MailInputs[Index].value.trim());
+                    if(PasswordInput[Index].value.trim() == JSON.parse(localStorage.getItem(localStorage.key(i))).Password){
+                        console.log("Correct Password",PasswordInput[Index].value.trim());   
+                    }
                 }
             }
         }
