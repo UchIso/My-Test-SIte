@@ -63,26 +63,45 @@ const LoginMenuBTM = document.getElementById("LoginMenuBTM")
 
 LoginMenuBTM.addEventListener("click", ClickEvent => {
 
-    LoginMenuBTM.offsetParent.style.width = "0px"
-    LoginMenuBTM.offsetParent.style.height = "0px"
-    
-    SignUpMenuBTN.offsetParent.style.width = "600px"
-    SignUpMenuBTN.offsetParent.style.height = "400px"
-    
-    SignUpMenuBTN.offsetParent.style.visibility = "visible"
-    LoginMenuBTM.offsetParent.style.visibility = "hidden"
-    
+    Array.from(LoginMenuBTM.offsetParent.children).forEach(Element => {
+        Element.style.opacity = 0
+        Element.style.visibility = "hidden"
+    })
+    setTimeout(()=>{
+        LoginMenuBTM.offsetParent.style.width = "0px"
+        LoginMenuBTM.offsetParent.style.height = "0px"
+        LoginMenuBTM.offsetParent.style.visibility = "hidden"
+        
+        SignUpMenuBTN.offsetParent.style.width = "600px"
+        SignUpMenuBTN.offsetParent.style.height = "400px"
+        SignUpMenuBTN.offsetParent.style.visibility = "visible"
+
+        Array.from(SignUpMenuBTN.offsetParent.children).forEach(Element => {
+            Element.style.opacity = 1
+            Element.style.visibility = "visible"
+        })
+    },400)
 })
 SignUpMenuBTN.addEventListener("click",ClickEvent => {
     
-    LoginMenuBTM.offsetParent.style.width = "600px"
-    LoginMenuBTM.offsetParent.style.height = "400px"
-    
-    SignUpMenuBTN.offsetParent.style.width = "0px"
-    SignUpMenuBTN.offsetParent.style.height = "0px"
-    
-    SignUpMenuBTN.offsetParent.style.visibility = "hidden"
-    LoginMenuBTM.offsetParent.style.visibility = "visible"
+    Array.from(SignUpMenuBTN.offsetParent.children).forEach(Element => {
+        Element.style.opacity = 0
+        Element.style.visibility = "hidden"
+    })
+    setTimeout(()=>{
+        SignUpMenuBTN.offsetParent.style.width = "0px"
+        SignUpMenuBTN.offsetParent.style.height = "0px"
+        SignUpMenuBTN.offsetParent.style.visibility = "hidden"
+        
+        LoginMenuBTM.offsetParent.style.width = "600px"
+        LoginMenuBTM.offsetParent.style.height = "400px"
+        LoginMenuBTM.offsetParent.style.visibility = "visible"
+
+        Array.from(LoginMenuBTM.offsetParent.children).forEach(Element => {
+            Element.style.opacity = 1
+            Element.style.visibility = "visible"
+        })
+    },400)
 })
 class User{
     constructor(Nick,Email,Password){
